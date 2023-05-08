@@ -152,9 +152,9 @@ ErrState DIO_ErrStateReadGroubValue(DIO_Groub_Num GroupNum ,u8* Result)	 				   
 		switch(GroupNum)
 		{
 		 case 0 : *Result=PINA; break;
-		 case 1 : *Result=PINA; break;
-		 case 2 : *Result=PINA; break;
-		 case 3 : *Result=PINA; break;
+		 case 1 : *Result=PINB; break;
+		 case 2 : *Result=PINC; break;
+		 case 3 : *Result=PIND; break;
 		 default : return GroubErr; break;
 		}
 		return NoErr;

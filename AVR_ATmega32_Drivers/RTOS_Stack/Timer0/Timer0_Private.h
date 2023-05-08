@@ -15,12 +15,6 @@
 #define PWM_Mode		3
 #define Fast_PWM_Mode	4
 
-
-/*Fast PWM modes*/
-#define ClearOnComp_nonInv   	1
-#define SetOnComp_Inv  		 	2
-
-
 /*CTC-OC2 Options*/
 #define Normal_port	    1
 #define Toggle_OC2		2

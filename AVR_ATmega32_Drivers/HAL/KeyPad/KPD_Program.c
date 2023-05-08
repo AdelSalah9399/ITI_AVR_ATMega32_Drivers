@@ -44,7 +44,7 @@ u8 KeyPad (KPD_INFO * KP)
 	u8 Row,coloum;
 	u8 res;
 		while(1)
-		{	_delay_ms(200); //******************************Verrrrrrrrry Important******************************
+		{	_delay_ms(300); //******************************Verrrrrrrrry Important******************************
 			for(Row=0;Row<4;Row++)
 			{
 				switch(Row)

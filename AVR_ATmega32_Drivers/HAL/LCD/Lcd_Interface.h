@@ -25,7 +25,7 @@ void Lcd_VoidSendSpecChar(Lcd_Info * Lcd,u8 SpecAddCGran,u8* Ch);
 
 LCD_ErrState Lcd_VoidGoXY(Lcd_Info * Lcd ,u8 Copy_XLocation ,u8 Copy_YLocation );
 
-
+void Lcd_VoidSendNumForTimers(u8 Copy_Num, Lcd_Info * Lcd);
 
 
 #endif /* HAL_LCD_LCD_INTERFACE_H_*/

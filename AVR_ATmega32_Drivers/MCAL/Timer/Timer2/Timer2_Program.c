@@ -13,7 +13,7 @@ void (*ptr2func)(void)=NULL;
 
 
 
-void Timer2ModeSetting()
+void Timer2Init()
 {
 #if TIMER2_OnOff == ON
 	#if TIMER2_MODE==Normal_Mode
@@ -31,14 +31,7 @@ void Timer2ModeSetting()
 	#else
 		#error "WRONG MODE CONFIGRATION"
 	#endif
-#else
-#error"Timer is OFF"
 
-#endif
-}
-void T2NormalModePreScalling()
-{
-#if TIMER2_OnOff == ON
 	#if T2_NM_Presaclling_Value==NO_PreScalling
 		SET_BIT(TCCR2,PIN0);
 		CLR_BIT(TCCR2,PIN1);
@@ -75,6 +68,7 @@ void T2NormalModePreScalling()
 
 #endif
 }
+
 void CTC_OC2Pin_Func()
 {
 #if CTC_OC2_mode == Normal_port
@@ -93,7 +87,7 @@ void CTC_OC2Pin_Func()
 	#error"WRONG OC2 CONFIGRATION"
 #endif
 }
-void Timer2NM_PIE_INTEnable()
+void Timer2_OF_PIE_INTEnable()
 {
 #if T2_NormalMode_OverFlow_INT_PIE==ENABLE
 	SET_BIT(TIMSK,PIN6);
@@ -103,7 +97,7 @@ void Timer2NM_PIE_INTEnable()
 	#error "WRONG CONFIGRATION"
 #endif
 }
-void Timer2CTC_PIE_INTEnable()
+void Timer2_CMPMatch_PIE_INTEnable()
 {
 #if T2_CTC_INT==ENABLE
 	SET_BIT(TIMSK,PIN7);
@@ -117,9 +111,26 @@ void Timer2_PreloadValue()
 {
 	TCNT2=T2_PreloadValue ;
 }
-void OCR2_TimeOverFlow()
+
+void FastPWM_INV_NonInv()
 {
-	OCR2=OC2_timeOverFlow ;
+#if FastPWM_InvOrNon==SetOnComp_Inv
+	CLR_BIT(TCCR2,4);
+	SET_BIT(TCCR2,5);
+#else if FastPWM_InvOrNon==ClearOnComp_nonInv
+	SET_BIT(TCCR2,4);
+	SET_BIT(TCCR2,5);
+
+#endif
+}
+
+//void T2NormalModePreScalling()
+//{
+//	OCR2=OC2_timeOverFlow ;
+//}
+void OCR2_CompValue(u8 compvalue)
+{
+	OCR2=compvalue ;
 }
 
 
@@ -130,7 +141,7 @@ void SetCallBack(void (*APPfunc)(void))
 {
 	if(APPfunc!=NULL)
 	{
-		ptr2func=APPfunc;
+		ptr2func=APPfunc;  // make the ptr = argument
 	}
 }
 
@@ -139,7 +150,7 @@ void __vector_5(void)
 {
 	if(ptr2func!=NULL)
 	{
-		ptr2func();
+		ptr2func(); //call the ptr
 	}
 }
 

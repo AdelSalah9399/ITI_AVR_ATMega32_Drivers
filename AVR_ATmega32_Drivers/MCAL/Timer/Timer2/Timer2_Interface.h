@@ -9,13 +9,14 @@
 #define MCAL_TIMER_TIMER2_TIMER2_INTERFACE_H_
 
 
-void Timer2ModeSetting();
-void T2NormalModePreScalling();
+void Timer2Init();
 void CTC_OC2Pin_Func();
-void Timer2NM_PIE_INTEnable();
-void Timer2CTC_PIE_INTEnable();
+void Timer2_OF_PIE_INTEnable();
+void Timer2_CMPMatch_PIE_INTEnable();
 void Timer2_PreloadValue();
-void OCR2_TimeOverFlow();
+void OCR2_CompValue(u8 compvalue);
+//void T2PreScalling();
+void FastPWM_INV_NonInv();
 void SetCallBack(void (*APPfunc)(void));
 
 

@@ -78,7 +78,7 @@ void Lcd_VoidInit(Lcd_Info * Lcd)
 	_delay_ms(2);
 
 }
-
+/*THE STRING ARRAY SIZE MUST BE NUMBER OF ELEMENTS +1*/
 void Lcd_VoidSendString(u8 *Address_String ,Lcd_Info * Lcd)
 {
 	/*Counter For Loop */
@@ -108,7 +108,7 @@ LCD_ErrState Lcd_VoidGoXY(Lcd_Info * Lcd ,u8 Copy_XLocation ,u8 Copy_YLocation )
 	{
 		return ErrLocation_X;
 	}
-	Lcd_VoidSendCommand((LCD_SetAddressDDRAM + Local_Address),Lcd);
+	Lcd_VoidSendCommand(LCD_SetAddressDDRAM + Local_Address,Lcd);
 	return NoErr_LCD;
 }
 
@@ -146,3 +146,22 @@ void Lcd_VoidSendSpecChar(Lcd_Info * Lcd,u8 SpecAddCGran,u8* Ch)
 	Lcd_VoidSendCommand(LCD_SetAddressDDRAM,Lcd);
 	Lcd_VoidSendChar(SpecAddCGran,Lcd);
 }
+
+
+void Lcd_VoidSendNumForTimers(u8 Copy_Num, Lcd_Info * Lcd)
+{
+	/*Numbers must be from 0:9*/
+	/*RS->High*/
+	DIO_ErrStateSetPinValue(Lcd->RS_Group , Lcd->RS_Pin , DIO_HIGH);
+	/*RW-> LOW*/
+	DIO_ErrStateSetPinValue(Lcd->RW_Group , Lcd-> RW_Pin , DIO_LOW) ;
+	/*Group = COmmand */
+	DIO_ErrStateSetGroubValue(Lcd->Data_Group , Copy_Num) ;
+	/*Enable*/
+	DIO_ErrStateSetPinValue(Lcd->E_Group , Lcd-> E_Pin , DIO_HIGH) ;
+	_delay_ms(1);
+	DIO_ErrStateSetPinValue(Lcd->E_Group , Lcd-> E_Pin , DIO_LOW) ;
+	_delay_ms(1);
+	counter++ ;
+}
+
